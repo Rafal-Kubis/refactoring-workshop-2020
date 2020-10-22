@@ -52,6 +52,8 @@ private:
 
     bool isLost(Segment& newHead);
     void calculateNewHead(const Segment& currentHead, Segment& newHead);
+    void headMakeAction(Segment& newHead, bool& lost);
+    void displaySnake(Segment& newHead, bool lost);
 };
 
 } // namespace Snake
