@@ -76,23 +76,8 @@ void Controller::receive(std::unique_ptr<Event> e)
         bool lost = isLost(newHead);
 
         headMakeAction(newHead,lost);
+        displaySnake(newHead, lost);
 
-        if (not lost) {
-            m_segments.push_front(newHead);
-            DisplayInd placeNewHead;
-            placeNewHead.x = newHead.x;
-            placeNewHead.y = newHead.y;
-            placeNewHead.value = Cell_SNAKE;
-
-            m_displayPort.send(std::make_unique<EventT<DisplayInd>>(placeNewHead));
-
-            m_segments.erase(
-                std::remove_if(
-                    m_segments.begin(),
-                    m_segments.end(),
-                    [](auto const& segment){ return not (segment.ttl > 0); }),
-                m_segments.end());
-        }
     } catch (std::bad_cast&) {
         try {
             auto direction = dynamic_cast<EventT<DirectionInd> const&>(*e)->direction;
@@ -226,4 +211,5 @@ void Controller::displaySnake(Segment& newHead, bool lost)
             m_segments.end());
     }
 }
+
 } // namespace Snake
