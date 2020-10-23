@@ -40,7 +40,6 @@ private:
 
     std::pair<int, int> m_mapDimension;
     Food food;
-    std::pair<int, int> m_foodPosition;
 
     struct Segment
     {
